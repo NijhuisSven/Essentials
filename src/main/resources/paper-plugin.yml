@@ -2,4 +2,4 @@ name: Essentials
 version: '1.0-SNAPSHOT'
 main: nl.nijhuissven.essentials.Essentials
 api-version: '1.21'
-author: 'NijhuisSven'
+authors: [ 'NijhuisSven', 'beetje daan plugge' ]

@@ -1,0 +1,12 @@
+# Database Configuration
+database:
+  # Database type (mysql or sqlite)
+  type: sqlite
+  
+  # MySQL Configuration (only used if type = mysql)
+  mysql:
+    host: localhost
+    port: 3306
+    database: essentials
+    username: root
+    password: password 
