@@ -35,13 +35,15 @@ public class SpeedCommand extends BaseCommand {
         }
 
         String speedType = isFlying ? "flying" : "walking";
+        String displaySpeed = clampedSpeed == 0.0001f ? "0" : String.valueOf(clampedSpeed);
+
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Your " + speedType + " speed has been set to <#73B8E2>" +
-                ChatUtils.small(String.valueOf(clampedSpeed)) + "<white>!"));
+                ChatUtils.small(displaySpeed) + "<white>!"));
         targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Set <green>" + targetPlayer.getName() + "'s<white> " + speedType + " speed to <#73B8E2>" +
-                    ChatUtils.small(String.valueOf(clampedSpeed)) + "<white>!"));
+                    ChatUtils.small(displaySpeed) + "<white>!"));
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
         }
     }
@@ -62,13 +64,16 @@ public class SpeedCommand extends BaseCommand {
         float actualSpeed = getRealMoveSpeed(clampedSpeed, false, player.hasPermission("essentials.speed.bypass"));
 
         targetPlayer.setWalkSpeed(actualSpeed);
+
+        String displaySpeed = clampedSpeed == 0.0001f ? "0" : String.valueOf(clampedSpeed);
+
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Your walking speed has been set to <#73B8E2>" +
-                ChatUtils.small(String.valueOf(clampedSpeed)) + "<white>!"));
+                ChatUtils.small(displaySpeed) + "<white>!"));
         targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Set <green>" + targetPlayer.getName() + "'s<white> walking speed to <#73B8E2>" +
-                    ChatUtils.small(String.valueOf(clampedSpeed)) + "<white>!"));
+                    ChatUtils.small(displaySpeed) + "<white>!"));
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
         }
     }
@@ -89,13 +94,16 @@ public class SpeedCommand extends BaseCommand {
         float actualSpeed = getRealMoveSpeed(clampedSpeed, true, player.hasPermission("essentials.speed.bypass"));
 
         targetPlayer.setFlySpeed(actualSpeed);
+
+        String displaySpeed = clampedSpeed == 0.0001f ? "0" : String.valueOf(clampedSpeed);
+
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Your flying speed has been set to <#73B8E2>" +
-                ChatUtils.small(String.valueOf(clampedSpeed)) + "<white>!"));
+                ChatUtils.small(displaySpeed) + "<white>!"));
         targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Set <green>" + targetPlayer.getName() + "'s<white> flying speed to <#73B8E2>" +
-                    ChatUtils.small(String.valueOf(clampedSpeed)) + "<white>!"));
+                    ChatUtils.small(displaySpeed) + "<white>!"));
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
         }
     }

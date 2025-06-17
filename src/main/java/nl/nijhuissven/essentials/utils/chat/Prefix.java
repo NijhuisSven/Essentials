@@ -12,7 +12,8 @@ public enum Prefix {
     ENDERCHEST("<gradient:#C32CB3:#7C006F>🧪 ᴇɴᴅᴇʀᴄʜᴇsᴛ<dark_gray>｜<reset>"),
     SPEED("<gradient:#83c9d1:#376F75>⚡ sᴘᴇᴇᴅ<dark_gray>｜<reset>"),
     MESSAGES("<gradient:#FF9B54:#FF7754>✉ ᴍᴇssᴀɢᴇs<dark_gray>｜<reset>"),
-    SERVER("<gradient:#FF3333:#FF3333>❗ ѕᴇʀᴠᴇʀ<dark_gray>｜<reset>");
+    INFO("<gradient:#61bb16:#33640A>ℹ ɪɴғᴏ<dark_gray>｜<reset>"),
+    SERVER("<gradient:#00A8A8:#006969>☁ ѕᴇʀᴠᴇʀ<dark_gray>｜<reset>");
 
     private final String prefix;
 
