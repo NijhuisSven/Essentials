@@ -1,4 +1,4 @@
-package nl.nijhuissven.essentials.commands.playerCommands;
+package nl.nijhuissven.essentials.commands.player;
 
 import co.aikar.commands.BaseCommand;
 

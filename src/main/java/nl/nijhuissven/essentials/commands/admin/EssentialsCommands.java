@@ -1,4 +1,4 @@
-package nl.nijhuissven.essentials.commands.adminCommands;
+package nl.nijhuissven.essentials.commands.admin;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
@@ -28,7 +28,6 @@ public class EssentialsCommands extends BaseCommand {
         player.sendMessage(ChatUtils.prefixed(Prefix.SERVER, "/ess about - Information about Essentials."));
         player.sendMessage(ChatUtils.prefixed(Prefix.SERVER, "/ess pluginstats - Show plugin statistics."));
     }
-
     @Subcommand("reload")
     public void onReload(Player player) {
         Essentials.instance().globalConfiguration().reload();

@@ -1,7 +1,6 @@
-package nl.nijhuissven.essentials.commands.baseCommands;
+package nl.nijhuissven.essentials.commands.base;
 
 import co.aikar.commands.BaseCommand;
-import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import nl.nijhuissven.essentials.annotions.AutoRegister;
 import nl.nijhuissven.essentials.utils.chat.ChatUtils;

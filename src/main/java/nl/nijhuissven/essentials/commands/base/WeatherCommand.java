@@ -1,4 +1,4 @@
-package nl.nijhuissven.essentials.commands.baseCommands;
+package nl.nijhuissven.essentials.commands.base;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
