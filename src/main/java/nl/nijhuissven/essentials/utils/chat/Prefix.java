@@ -13,6 +13,8 @@ public enum Prefix {
     SPEED("<gradient:#83c9d1:#376F75>⚡ sᴘᴇᴇᴅ<dark_gray>｜<reset>"),
     MESSAGES("<gradient:#FF9B54:#FF7754>✉ ᴍᴇssᴀɢᴇs<dark_gray>｜<reset>"),
     INFO("<gradient:#61bb16:#33640A>ℹ ɪɴғᴏ<dark_gray>｜<reset>"),
+    WARPS("<gradient:#F160AF:#99145C>⚗ ᴡᴀʀᴘs<dark_gray>｜<reset>"),
+    TELEPORT("<gradient:#B8039B:#640254><bold>🌀</bold> ᴛᴇʟᴇᴘᴏʀᴛ<dark_gray>｜<reset>"),
     SERVER("<gradient:#00A8A8:#006969>☁ ѕᴇʀᴠᴇʀ<dark_gray>｜<reset>");
 
     private final String prefix;

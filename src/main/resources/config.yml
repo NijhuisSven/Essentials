@@ -9,4 +9,17 @@ database:
     port: 3306
     database: essentials
     username: root
-    password: password 
+    password: password
+
+# Warp Configuration
+warps:
+  # Storage type (yaml or database)
+  storage: yaml
+  
+  # Teleport settings
+  teleport:
+    # Delay in seconds before teleporting (0 to disable)
+    delay: 3
+    
+    # Cancel teleport if player moves
+    cancel-on-move: true

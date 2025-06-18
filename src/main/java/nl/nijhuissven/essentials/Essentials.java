@@ -7,7 +7,9 @@ import nl.nijhuissven.essentials.commands.CommandManager;
 import nl.nijhuissven.essentials.config.GlobalConfiguration;
 import nl.nijhuissven.essentials.database.Database;
 import nl.nijhuissven.essentials.listeners.PlayerListener;
+import nl.nijhuissven.essentials.listeners.TeleportListener;
 import nl.nijhuissven.essentials.managers.PlayerManager;
+import nl.nijhuissven.essentials.managers.WarpManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -22,6 +24,7 @@ public final class Essentials extends JavaPlugin {
     private GlobalConfiguration globalConfiguration;
     private Database database;
     private PlayerManager playerManager;
+    private WarpManager warpManager;
 
     @Override
     public void onEnable() {
@@ -34,11 +37,13 @@ public final class Essentials extends JavaPlugin {
         // Initialize database
         this.database = new Database(globalConfiguration, getDataFolder());
 
-        // Initialize player manager
+        // Initialize managers
         this.playerManager = new PlayerManager();
+        this.warpManager = new WarpManager(globalConfiguration.warpStorage().equalsIgnoreCase("database"));
 
         // Register listeners
         getServer().getPluginManager().registerEvents(new PlayerListener(playerManager), this);
+        getServer().getPluginManager().registerEvents(new TeleportListener(), this);
 
         // Initialize command manager
         PaperCommandManager commandManager = new PaperCommandManager(this);

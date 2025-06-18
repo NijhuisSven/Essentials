@@ -13,6 +13,7 @@ import nl.nijhuissven.essentials.config.DatabaseType;
 import nl.nijhuissven.essentials.config.GlobalConfiguration;
 import nl.nijhuissven.essentials.database.adapters.FixedBooleanAdapter;
 import nl.nijhuissven.essentials.models.PlayerModel;
+import nl.nijhuissven.essentials.models.WarpModel;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -43,6 +44,7 @@ public class Database {
             }
             TypeRegistry.registerAdapter(Boolean.class, new FixedBooleanAdapter());
             tempStorm.registerModel(new PlayerModel());
+            tempStorm.registerModel(new WarpModel());
             tempStorm.runMigrations();
         } catch (Exception e) {
             Essentials.logger().severe("Database initialization failed: " + e.getMessage());
@@ -80,5 +82,13 @@ public class Database {
 
     public void disconnect() {
         executorService.shutdown();
+    }
+
+    public void deleteModel(StormModel model) {
+        try {
+            storm.delete(model);
+        } catch (SQLException e) {
+            Essentials.logger().severe("Couldn't delete model: " + e.getMessage());
+        }
     }
 } 

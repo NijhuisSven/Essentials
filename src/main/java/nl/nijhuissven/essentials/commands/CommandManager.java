@@ -6,6 +6,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import lombok.RequiredArgsConstructor;
 import nl.nijhuissven.essentials.Essentials;
 import nl.nijhuissven.essentials.annotions.AutoRegister;
+import nl.nijhuissven.essentials.managers.WarpManager;
 import org.bukkit.GameMode;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
@@ -23,11 +24,16 @@ public class CommandManager {
 
     public void registerCommands() {
         try {
-            // Register completions
+            // Register gamemode completions
             commandManager.getCommandCompletions().registerCompletion("gamemodes", c -> 
                 Arrays.stream(GameMode.values())
                     .map(GameMode::name)
                     .collect(Collectors.toList())
+            );
+
+            // Register warp completion
+            commandManager.getCommandCompletions().registerCompletion("warps", c ->
+                Essentials.instance().warpManager().getWarpNames()
             );
 
             Reflections reflections = new Reflections(basePackage);
