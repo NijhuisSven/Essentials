@@ -1,4 +1,4 @@
-rootProject.name = "essentials"
+rootProject.name = "orbit"
 
 pluginManagement {
     repositories {

@@ -5,7 +5,7 @@ plugins {
     id("io.freefair.lombok") version "8.6"
 }
 
-group = "nl.nijhuissven.essentials"
+group = "nl.nijhuissven.orbit"
 version = "1.0"
 
 java {

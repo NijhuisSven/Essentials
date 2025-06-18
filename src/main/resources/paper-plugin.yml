@@ -1,5 +1,5 @@
-name: Essentials
+name: Orbit
 version: '1.0'
-main: nl.nijhuissven.essentials.Essentials
+main: nl.nijhuissven.orbit.Orbit
 api-version: '1.21'
 authors: [ 'NijhuisSven', 'beetje daan plugge' ]
