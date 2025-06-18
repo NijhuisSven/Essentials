@@ -11,13 +11,8 @@ A **lightweight** and **blazing fast** Minecraft Paper plugin with essential com
 - 🧑‍💻 **Efficient command structure** (Aikar Commands Framework) - Zero overhead
 - 🔄 **Smart auto-registration** via `@AutoRegister` annotation - No manual setup
 - 🕒 **Optimized server monitoring** - Real-time info with minimal CPU usage
-- 💬 **Fast private messaging** - Instant message delivery
 - 🎮 **Efficient player management** - Memory-optimized data storage
 - 🌍 **Lightweight warp system** - YAML or Database with smart caching
-- ⚡ **Optimized teleportation** - Fast countdown with movement detection
-- 🎯 **Streamlined player commands** - Gamemode, fly, speed & more
-- 🌤️ **Efficient time & weather** - Instant world modifications
-- 📦 **Quick ender chest access** - No delays or lag
 
 ---
 
