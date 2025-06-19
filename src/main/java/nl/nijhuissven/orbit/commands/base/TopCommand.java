@@ -3,6 +3,7 @@ package nl.nijhuissven.orbit.commands.base;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Location;
@@ -25,7 +26,7 @@ public class TopCommand extends BaseCommand {
 
         if (highestLocation.getY() <= -64) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TELEPORT, "Cannot find a safe location to teleport to."));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 0.5F);
+            SoundUtils.playErrorSound(player);
             return;
         }
 
@@ -35,6 +36,6 @@ public class TopCommand extends BaseCommand {
 
         player.teleport(highestLocation);
         player.sendMessage(ChatUtils.prefixed(Prefix.TELEPORT, "You have been teleported to the highest position."));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0f, 1.0f);
+        SoundUtils.playSuccessSound(player);
     }
 }

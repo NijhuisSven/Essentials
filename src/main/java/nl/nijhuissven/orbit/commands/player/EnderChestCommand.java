@@ -3,6 +3,7 @@ package nl.nijhuissven.orbit.commands.player;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.OfflinePlayer;
@@ -21,18 +22,19 @@ public class EnderChestCommand extends BaseCommand {
         Player targetPlayer = target != null ? target.getPlayer() : player;
 
         if (targetPlayer == null) {
-            player.sendMessage(ChatUtils.prefixed(Prefix.ENDERCHEST, "<red>That player is not online!"));
+            player.sendMessage(ChatUtils.prefixed(Prefix.ENDERCHEST, "<red>That player is not found!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         player.openInventory(targetPlayer.getEnderChest());
 
-        player.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
         player.sendMessage(ChatUtils.prefixed(Prefix.ENDERCHEST, "You have opened your ender chest!"));
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.ENDERCHEST, "You have opened <green>" + targetPlayer.getName() + "'s<white> ender chest!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
 
     }

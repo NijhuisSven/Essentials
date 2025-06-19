@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Sound;
@@ -21,6 +22,7 @@ public class SpeedCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.speed.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "<red>You don't have permission to change other players' speed!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
@@ -39,12 +41,12 @@ public class SpeedCommand extends BaseCommand {
 
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Your " + speedType + " speed has been set to <#73B8E2>" +
                 ChatUtils.small(displaySpeed) + "<white>!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Set <green>" + targetPlayer.getName() + "'s<white> " + speedType + " speed to <#73B8E2>" +
                     ChatUtils.small(displaySpeed) + "<white>!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 
@@ -57,6 +59,7 @@ public class SpeedCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.speed.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "<red>You don't have permission to change other players' speed!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
@@ -69,12 +72,12 @@ public class SpeedCommand extends BaseCommand {
 
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Your walking speed has been set to <#73B8E2>" +
                 ChatUtils.small(displaySpeed) + "<white>!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Set <green>" + targetPlayer.getName() + "'s<white> walking speed to <#73B8E2>" +
                     ChatUtils.small(displaySpeed) + "<white>!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 
@@ -87,6 +90,7 @@ public class SpeedCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.speed.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "<red>You don't have permission to change other players' speed!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
@@ -99,12 +103,12 @@ public class SpeedCommand extends BaseCommand {
 
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Your flying speed has been set to <#73B8E2>" +
                 ChatUtils.small(displaySpeed) + "<white>!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.SPEED, "Set <green>" + targetPlayer.getName() + "'s<white> flying speed to <#73B8E2>" +
                     ChatUtils.small(displaySpeed) + "<white>!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 

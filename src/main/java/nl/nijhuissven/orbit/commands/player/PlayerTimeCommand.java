@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Sound;
@@ -22,18 +23,19 @@ public class PlayerTimeCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.ptime.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "<red>You don't have permission to change other players' time!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         targetPlayer.setPlayerTime(1000, false);
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Your personal time has been set to <#FFD700>" +
                 ChatUtils.small("day") + "<white>!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Set <green>" + targetPlayer.getName() + "'s<white> personal time to <#FFD700>" +
                     ChatUtils.small("day") + "<white>!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 
@@ -44,18 +46,19 @@ public class PlayerTimeCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.ptime.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "<red>You don't have permission to change other players' time!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         targetPlayer.setPlayerTime(13000, false);
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Your personal time has been set to <#373737>" +
                 ChatUtils.small("night") + "<white>!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Set <green>" + targetPlayer.getName() + "'s<white> personal time to <#373737>" +
                     ChatUtils.small("night") + "<white>!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 
@@ -66,18 +69,19 @@ public class PlayerTimeCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.ptime.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "<red>You don't have permission to change other players' time!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         targetPlayer.setPlayerTime(6000, false);
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Your personal time has been set to <#FFD700>" +
                 ChatUtils.small("noon") + "<white>!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Set <green>" + targetPlayer.getName() + "'s<white> personal time to <#FFD700>" +
                     ChatUtils.small("noon") + "<white>!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 
@@ -88,18 +92,19 @@ public class PlayerTimeCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.ptime.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "<red>You don't have permission to change other players' time!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         targetPlayer.setPlayerTime(18000, false);
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Your personal time has been set to <#1E1E3F>" +
                 ChatUtils.small("midnight") + "<white>!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Set <green>" + targetPlayer.getName() + "'s<white> personal time to <#1E1E3F>" +
                     ChatUtils.small("midnight") + "<white>!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 
@@ -110,18 +115,19 @@ public class PlayerTimeCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.ptime.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "<red>You don't have permission to change other players' time!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         targetPlayer.setPlayerTime(23000, false);
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Your personal time has been set to <#FF8C33>" +
                 ChatUtils.small("sunrise") + "<white>!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Set <green>" + targetPlayer.getName() + "'s<white> personal time to <#FF8C33>" +
                     ChatUtils.small("sunrise") + "<white>!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 
@@ -132,18 +138,19 @@ public class PlayerTimeCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.ptime.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "<red>You don't have permission to change other players' time!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         targetPlayer.setPlayerTime(12000, false);
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Your personal time has been set to <#FF5733>" +
                 ChatUtils.small("sunset") + "<white>!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Set <green>" + targetPlayer.getName() + "'s<white> personal time to <#FF5733>" +
                     ChatUtils.small("sunset") + "<white>!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 
@@ -154,17 +161,18 @@ public class PlayerTimeCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.ptime.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "<red>You don't have permission to change other players' time!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         targetPlayer.resetPlayerTime();
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Your personal time has been <#73B8E2>" +
                 ChatUtils.small("reset") + "<white> to match the server time!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Reset <green>" + targetPlayer.getName() + "'s<white> personal time to match the server time!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 

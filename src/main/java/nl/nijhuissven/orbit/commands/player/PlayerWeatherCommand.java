@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Sound;
@@ -23,18 +24,19 @@ public class PlayerWeatherCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.pweather.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.WEATHER, "<red>You don't have permission to change other players' weather!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         targetPlayer.setPlayerWeather(WeatherType.CLEAR);
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.WEATHER, "Your personal weather has been set to <#FFD700>" +
                 ChatUtils.small("sunny") + "<white>!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.WEATHER, "Set <green>" + targetPlayer.getName() + "'s<white> personal weather to <#FFD700>" +
                     ChatUtils.small("sunny") + "<white>!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 
@@ -45,18 +47,19 @@ public class PlayerWeatherCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.pweather.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.WEATHER, "<red>You don't have permission to change other players' weather!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         targetPlayer.setPlayerWeather(WeatherType.DOWNFALL);
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.WEATHER, "Your personal weather has been set to <#73B8E2>" +
                 ChatUtils.small("rainy") + "<white>!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.WEATHER, "Set <green>" + targetPlayer.getName() + "'s<white> personal weather to <#73B8E2>" +
                     ChatUtils.small("rainy") + "<white>!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 
@@ -67,17 +70,18 @@ public class PlayerWeatherCommand extends BaseCommand {
 
         if (target != null && !player.hasPermission("orbit.pweather.others")) {
             player.sendMessage(ChatUtils.prefixed(Prefix.WEATHER, "<red>You don't have permission to change other players' weather!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         targetPlayer.resetPlayerWeather();
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.WEATHER, "Your personal weather has been <#73B8E2>" +
                 ChatUtils.small("reset") + "<white> to match the server weather!"));
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.WEATHER, "Reset <green>" + targetPlayer.getName() + "'s<white> personal weather to match the server weather!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
     }
 

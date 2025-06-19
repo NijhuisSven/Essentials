@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import nl.nijhuissven.orbit.Orbit;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.TeleportUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
@@ -22,18 +23,18 @@ public class WarpCommand extends BaseCommand {
         var warp = Orbit.instance().warpManager().getWarp(warpName);
         if (warp == null) {
             player.sendMessage(ChatUtils.prefixed(Prefix.WARPS, "<red>Warp <white>" + warpName + "<red> does not exist!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 0.0F);
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         if (warp.permission() != null && !player.hasPermission(warp.permission())) {
             player.sendMessage(ChatUtils.prefixed(Prefix.WARPS, "<red>You don't have permission to use this warp!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 0.0F);
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         TeleportUtils.scheduleTeleport(player, warp.toLocation(), "Teleported to warp <#61bb16>" + warpName);
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @Subcommand("list")
@@ -43,6 +44,7 @@ public class WarpCommand extends BaseCommand {
         var warps = Orbit.instance().warpManager().getWarpNames();
         if (warps.isEmpty()) {
             player.sendMessage(ChatUtils.prefixed(Prefix.WARPS, "<red>No warps have been set!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 

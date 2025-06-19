@@ -35,6 +35,7 @@ dependencies {
     compileOnly("org.xerial:sqlite-jdbc:3.42.0.0")
     compileOnly("com.zaxxer:HikariCP:5.0.1")
     compileOnly("org.mariadb.jdbc:mariadb-java-client:3.3.3")
+    compileOnly("net.luckperms:api:5.4")
 }
 
 tasks {

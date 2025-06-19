@@ -6,7 +6,11 @@ import co.aikar.commands.annotation.CommandAlias;
 import lombok.RequiredArgsConstructor;
 import nl.nijhuissven.orbit.Orbit;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.World;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 
@@ -34,6 +38,36 @@ public class CommandManager {
             commandManager.getCommandCompletions().registerCompletion("warps", c ->
                 Orbit.instance().warpManager().getWarpNames()
             );
+
+            // Register player completion
+            commandManager.getCommandCompletions().registerCompletion("players", c -> {
+                return Bukkit.getOnlinePlayers().stream()
+                    .map(Player::getName)
+                    .collect(Collectors.toList());
+            });
+
+            // Register home completion
+            commandManager.getCommandCompletions().registerCompletion("homes", c -> {
+                if (c.getPlayer() != null) {
+                    return Orbit.instance().homeManager().getHomeNames(c.getPlayer().getUniqueId());
+                }
+                return Arrays.asList();
+            });
+
+            // Register entity types completion
+            commandManager.getCommandCompletions().registerCompletion("entitytypes", c -> {
+                return Arrays.stream(EntityType.values())
+                    .map(EntityType::name)
+                    .map(String::toLowerCase)
+                    .collect(Collectors.toList());
+            });
+
+            // Register worlds completion
+            commandManager.getCommandCompletions().registerCompletion("worlds", c -> {
+                return Bukkit.getWorlds().stream()
+                    .map(World::getName)
+                    .collect(Collectors.toList());
+            });
 
             Reflections reflections = new Reflections(basePackage);
             Set<Class<?>> annotatedClasses = reflections.get(Scanners.SubTypes.of(Scanners.TypesAnnotated.with(AutoRegister.class)).asClass());

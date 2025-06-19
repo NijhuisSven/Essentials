@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Location;
@@ -21,7 +22,7 @@ public class TeleportCommand extends BaseCommand {
     public void onTeleport(Player player, OnlinePlayer target) {
         player.teleport(target.getPlayer());
         player.sendMessage(ChatUtils.prefixed(Prefix.TELEPORT, "You have teleported to <green>" + target.getPlayer().getName() + "<white>."));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 0.5f, 1.0f);
+        SoundUtils.playSuccessSound(player);
     }
 
     @Default
@@ -37,8 +38,8 @@ public class TeleportCommand extends BaseCommand {
         playerOne.sendMessage(ChatUtils.prefixed(Prefix.TELEPORT, "You were teleported to <green>" +
                 playerTwo.getName() + "<white> by <green>" + player.getName() + "<white>."));
 
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 0.5f, 1.0f);
-        playerOne.playSound(playerOne.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 0.5f, 1.0f);
+        SoundUtils.playSuccessSound(player);
+        SoundUtils.playSuccessSound(playerOne);
     }
 
     @Default
@@ -48,7 +49,7 @@ public class TeleportCommand extends BaseCommand {
 
         player.sendMessage(ChatUtils.prefixed(Prefix.TELEPORT, "You have teleported to <#61bb16>" +
                 String.format("%.1f, %.1f, %.1f", x, y, z) + "<white>."));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 0.5f, 1.0f);
+        SoundUtils.playSuccessSound(player);
     }
 
     @Default
@@ -63,8 +64,8 @@ public class TeleportCommand extends BaseCommand {
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.TELEPORT, "You were teleported to <#61bb16>" +
                 String.format("%.1f, %.1f, %.1f", x, y, z) + "<white> by <green>" + player.getName() + "<white>."));
 
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 0.5f, 1.0f);
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 0.5f, 1.0f);
+        SoundUtils.playSuccessSound(player);
+        SoundUtils.playSuccessSound(targetPlayer);
     }
 
     @CommandAlias("teleporthere|tphere|tph|s")
@@ -80,8 +81,8 @@ public class TeleportCommand extends BaseCommand {
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.TELEPORT, "You were teleported to <green>" +
                 player.getName() + "<white>."));
 
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 0.5f, 1.0f);
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 0.5f, 1.0f);
+        SoundUtils.playSuccessSound(player);
+        SoundUtils.playSuccessSound(targetPlayer);
     }
 
     @HelpCommand

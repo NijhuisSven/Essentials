@@ -11,13 +11,8 @@ A **lightweight** and **blazing fast** Minecraft Paper plugin with essential com
 - 🧑‍💻 **Efficient command structure** (Aikar Commands Framework) - Zero overhead
 - 🔄 **Smart auto-registration** via `@AutoRegister` annotation - No manual setup
 - 🕒 **Optimized server monitoring** - Real-time info with minimal CPU usage
-- 💬 **Fast private messaging** - Instant message delivery
 - 🎮 **Efficient player management** - Memory-optimized data storage
 - 🌍 **Lightweight warp system** - YAML or Database with smart caching
-- ⚡ **Optimized teleportation** - Fast countdown with movement detection
-- 🎯 **Streamlined player commands** - Gamemode, fly, speed & more
-- 🌤️ **Efficient time & weather** - Instant world modifications
-- 📦 **Quick ender chest access** - No delays or lag
 
 ---
 
@@ -36,29 +31,37 @@ A **lightweight** and **blazing fast** Minecraft Paper plugin with essential com
 # config.yml - Minimal and efficient configuration
 # Database Configuration
 database:
-  # Database type (mysql or sqlite)
-  type: sqlite
-  
-  # MySQL Configuration (only used if type = mysql)
-  mysql:
-    host: localhost
-    port: 3306
-    database: orbit
-    username: root
-    password: password
+   # Database type (mysql or sqlite)
+   type: sqlite
+
+   # MySQL Configuration (only used if type = mysql)
+   mysql:
+      host: localhost
+      port: 3306
+      database: orbit
+      username: root
+      password: password
 
 # Warp Configuration
 warps:
-  # Storage type (yaml or database)
-  storage: yaml
-  
-  # Teleportation settings
-  teleport:
-    # Delay in seconds before teleporting (0 to disable)
-    delay: 3
-    
-    # Cancel teleport if player moves
-    cancel-on-move: true
+   # Storage type (yaml or database)
+   storage: yaml
+
+   # Teleportation settings
+   teleport:
+      # Delay in seconds before teleporting (0 to disable)
+      delay: 3
+
+      # Cancel teleport if player moves
+      cancel-on-move: true
+
+# Home Configuration
+homes:
+   # Storage type (yaml or database)
+   storage: yaml
+
+   # Maximum number of homes per player
+   max-homes: 3
 ```
 
 ---
@@ -67,11 +70,12 @@ warps:
 
 **📖 Complete command documentation available in [COMMANDS.md](COMMANDS.md)**
 
-The plugin includes **24 commands** across 4 categories:
+This plugin includes a variety of commands organized into categories for easy access:
 - 🔧 **Admin Commands** - Server management and monitoring
-- 🎮 **Player Commands** - Player-specific features and utilities  
+- 🎮 **Player Commands** - Player-specific features and utilities
 - 🌍 **Base Commands** - Basic world and teleportation commands
 - 🗺️ **Warp Commands** - Warp system management
+- 🏠 **Home Commands** - Player home management
 
 ---
 
@@ -80,7 +84,7 @@ The plugin includes **24 commands** across 4 categories:
 ### Adding New Commands - Zero Overhead
 1. Create a new Java class in the appropriate folder:
    - `admin/` - For admin commands
-   - `base/` - For base commands  
+   - `base/` - For base commands
    - `player/` - For player commands
    - `warp/` - For warp-related commands
 
@@ -91,7 +95,7 @@ The plugin includes **24 commands** across 4 categories:
 @CommandPermission("orbit.yourcommand")
 @Description("Description of your command")
 public class YourCommand extends BaseCommand {
-    // Your command implementation
+   // Your command implementation
 }
 ```
 
@@ -152,4 +156,4 @@ MIT License — see LICENSE file.
 
 ---
 
-**Made with ❤️ by Svenn - Built for speed and efficiency!**
+**Made with ❤️ - Built for speed and efficiency!**

@@ -3,6 +3,7 @@ package nl.nijhuissven.orbit.commands.base;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Sound;
@@ -32,7 +33,7 @@ public class WeatherCommand extends BaseCommand {
                     ChatUtils.small("sunny") + "<white>!"));
         }
 
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @CommandAlias("rain|storm")
@@ -52,7 +53,7 @@ public class WeatherCommand extends BaseCommand {
                     ChatUtils.small("rainy") + "<white>!"));
         }
 
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @CommandAlias("thunder")
@@ -73,7 +74,7 @@ public class WeatherCommand extends BaseCommand {
                     ChatUtils.small("thunder") + "<white>!"));
         }
 
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @Default

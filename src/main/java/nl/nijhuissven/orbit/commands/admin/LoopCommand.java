@@ -6,6 +6,7 @@ import lombok.Getter;
 import nl.nijhuissven.orbit.Orbit;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
 import nl.nijhuissven.orbit.tasks.LoopCommandTask;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Sound;
@@ -30,6 +31,7 @@ public class LoopCommand extends BaseCommand {
     public void onLoop(Player player, int amount, int tickDelay, String command) {
         if (loopTasks.containsKey(player.getUniqueId())) {
             player.sendMessage(ChatUtils.prefixed(Prefix.INFO, "<red>You can only have one active loop at a time. Use <white>/loop stop <red>first."));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
@@ -52,7 +54,7 @@ public class LoopCommand extends BaseCommand {
         LoopCommandTask loopTask = new LoopCommandTask(this, player, finalCommand, amount);
         loopTasks.put(player.getUniqueId(), loopTask);
         loopTask.runTaskTimer(Orbit.instance(), 0L, tickDelay);
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @Subcommand("stop")
@@ -62,13 +64,14 @@ public class LoopCommand extends BaseCommand {
 
         if (task == null) {
             player.sendMessage(ChatUtils.prefixed(Prefix.INFO, "<red>You don't have an active command loop."));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
         task.cancel();
         loopTasks.remove(player.getUniqueId());
         player.sendMessage(ChatUtils.prefixed(Prefix.INFO, "Command loop <#61bb16>stopped<white>."));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @HelpCommand

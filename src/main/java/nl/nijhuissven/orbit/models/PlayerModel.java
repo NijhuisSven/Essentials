@@ -21,15 +21,26 @@ public class PlayerModel extends StormModel {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "ignore_messages")
-    private Boolean ignoreMessages;
+    @Column(name = "sounds_enabled")
+    private Boolean soundsEnabled;
+
+    @Column(name = "private_messages_enabled")
+    private Boolean privateMessagesEnabled;
+
     public PlayerModel() {
     }
 
     public PlayerModel(UUID uuid, String name) {
         this.uuid = uuid;
         this.name = name;
-        this.ignoreMessages = false;
+        this.soundsEnabled = true;
+        this.privateMessagesEnabled = true;
+    }
 
+    public PlayerModel(UUID uuid, String name, boolean soundsEnabled, boolean privateMessagesEnabled) {
+        this.uuid = uuid;
+        this.name = name;
+        this.soundsEnabled = soundsEnabled;
+        this.privateMessagesEnabled = privateMessagesEnabled;
     }
 } 

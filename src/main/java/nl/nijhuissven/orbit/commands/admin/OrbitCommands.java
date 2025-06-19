@@ -9,6 +9,7 @@ import lombok.SneakyThrows;
 import nl.nijhuissven.orbit.Orbit;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
 import nl.nijhuissven.orbit.utils.FormatDate;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.entity.Player;
@@ -34,6 +35,7 @@ public class OrbitCommands extends BaseCommand {
         Orbit.instance().warpManager().reload();
 
         player.sendMessage(ChatUtils.prefixed(Prefix.SERVER, "Config files has been reloaded"));
+        SoundUtils.playSuccessSound(player);
         Orbit.logger().info("Config files has been reloaded by " + player.getName());
     }
 

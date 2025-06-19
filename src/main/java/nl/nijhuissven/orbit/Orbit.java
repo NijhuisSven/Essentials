@@ -3,13 +3,18 @@ package nl.nijhuissven.orbit;
 import co.aikar.commands.PaperCommandManager;
 import lombok.Getter;
 import lombok.experimental.Accessors;
+import net.luckperms.api.LuckPerms;
 import nl.nijhuissven.orbit.commands.CommandManager;
 import nl.nijhuissven.orbit.config.GlobalConfiguration;
 import nl.nijhuissven.orbit.database.Database;
+import nl.nijhuissven.orbit.listeners.ChatListener;
 import nl.nijhuissven.orbit.listeners.PlayerListener;
 import nl.nijhuissven.orbit.listeners.TeleportListener;
+import nl.nijhuissven.orbit.managers.HomeManager;
 import nl.nijhuissven.orbit.managers.PlayerManager;
 import nl.nijhuissven.orbit.managers.WarpManager;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -25,11 +30,21 @@ public final class Orbit extends JavaPlugin {
     private Database database;
     private PlayerManager playerManager;
     private WarpManager warpManager;
+    private HomeManager homeManager;
 
     @Override
     public void onEnable() {
         Orbit.logger = getLogger();
         Orbit.instance = this;
+
+        if (Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
+            RegisteredServiceProvider<LuckPerms> provider = instance().getServer().getServicesManager().getRegistration(LuckPerms.class);
+            if (provider != null) {
+                LuckPerms api = provider.getProvider();
+            }
+        } else {
+            logger().warning("LuckPerms not found. Please install it for placeholder support.");
+        }
 
         // Initialize configuration
         this.globalConfiguration = new GlobalConfiguration();
@@ -40,8 +55,10 @@ public final class Orbit extends JavaPlugin {
         // Initialize managers
         this.playerManager = new PlayerManager();
         this.warpManager = new WarpManager(globalConfiguration.warpStorage().equalsIgnoreCase("database"));
+        this.homeManager = new HomeManager(globalConfiguration.homeStorage().equalsIgnoreCase("database"));
 
         // Register listeners
+        getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(playerManager), this);
         getServer().getPluginManager().registerEvents(new TeleportListener(), this);
 

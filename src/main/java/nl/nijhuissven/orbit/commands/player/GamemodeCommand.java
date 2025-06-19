@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.GameMode;
@@ -28,9 +29,11 @@ public class GamemodeCommand extends BaseCommand {
 
         targetPlayer.setGameMode(gameMode);
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.GAMEMODE, "Your gamemode has been set to <#FA7499>" + ChatUtils.small(modeName(gameMode)) + "<white>!"));
+        SoundUtils.playSuccessSound(targetPlayer);
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.GAMEMODE, "You have set <green>" + targetPlayer.getName() + "'s<white> gamemode to <#FA7499>" + ChatUtils.small(modeName(gameMode)) + "<white>!"));
+            SoundUtils.playSuccessSound(player);
         }
     }
 

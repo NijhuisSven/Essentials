@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Sound;
@@ -26,12 +27,12 @@ public class FlyCommand extends BaseCommand {
         targetPlayer.setAllowFlight(enabled);
         targetPlayer.setFlying(enabled);
 
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(targetPlayer);
         targetPlayer.sendMessage(ChatUtils.prefixed(Prefix.FLY, "Your flight mode has been <#73B8E2>" + ChatUtils.small((enabled ? "enabled" : "disabled")) + "<white>!"));
 
         if (!targetPlayer.equals(player)) {
             player.sendMessage(ChatUtils.prefixed(Prefix.FLY, "You have <#73B8E2>" + ChatUtils.small((enabled ? "enabled" : "disabled") + " <green>" + "<green>" + targetPlayer.getName()) + "'s<white> flight mode!"));
-            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+            SoundUtils.playSuccessSound(player);
         }
 
     }

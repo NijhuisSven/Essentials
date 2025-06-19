@@ -3,6 +3,7 @@ package nl.nijhuissven.orbit.commands.base;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Sound;
@@ -23,7 +24,7 @@ public class TimeCommand extends BaseCommand {
         world.setTime(1000);
         player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Time has been set to <#FFD700>" +
                 ChatUtils.small("day") + "<white>!"));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @Subcommand("night")
@@ -34,7 +35,7 @@ public class TimeCommand extends BaseCommand {
         world.setTime(13000);
         player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Time has been set to <#373737>" +
                 ChatUtils.small("night") + "<white>!"));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @CommandAlias("noon")
@@ -44,7 +45,7 @@ public class TimeCommand extends BaseCommand {
         world.setTime(6000);
         player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Time has been set to <#FFD700>" +
                 ChatUtils.small("noon") + "<white>!"));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @CommandAlias("midnight")
@@ -54,7 +55,7 @@ public class TimeCommand extends BaseCommand {
         world.setTime(18000);
         player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Time has been set to <#1E1E3F>" +
                 ChatUtils.small("midnight") + "<white>!"));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @CommandAlias("sunrise")
@@ -64,7 +65,7 @@ public class TimeCommand extends BaseCommand {
         world.setTime(23000);
         player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Time has been set to <#FF8C33>" +
                 ChatUtils.small("sunrise") + "<white>!"));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @CommandAlias("sunset")
@@ -74,7 +75,7 @@ public class TimeCommand extends BaseCommand {
         world.setTime(12000);
         player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Time has been set to <#FF5733>" +
                 ChatUtils.small("sunset") + "<white>!"));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @Subcommand("set")
@@ -89,7 +90,7 @@ public class TimeCommand extends BaseCommand {
         world.setTime(time);
         player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Time has been set to <#73B8E2>" +
                 ChatUtils.small(String.valueOf(time)) + "<white>!"));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @Subcommand("add")
@@ -100,7 +101,7 @@ public class TimeCommand extends BaseCommand {
         world.setTime(currentTime + time);
         player.sendMessage(ChatUtils.prefixed(Prefix.TIME, "Added <#73B8E2>" +
                 ChatUtils.small(String.valueOf(time)) + "<white> to the current time!"));
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
     }
 
     @Default

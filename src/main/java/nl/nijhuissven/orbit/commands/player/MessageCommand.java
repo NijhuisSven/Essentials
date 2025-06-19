@@ -6,9 +6,9 @@ import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import net.kyori.adventure.text.Component;
 import nl.nijhuissven.orbit.Orbit;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 @AutoRegister
@@ -22,8 +22,9 @@ public class MessageCommand extends BaseCommand {
         Player targetPlayer = target.getPlayer();
 
         // Check if target has messages disabled
-        if (Orbit.instance().playerManager().getPlayer(targetPlayer).ignoreMessages()) {
+        if (!Orbit.instance().playerManager().isPrivateMessagesEnabled(targetPlayer.getUniqueId())) {
             player.sendMessage(ChatUtils.prefixed(Prefix.MESSAGES, "<red>This player has messages disabled!"));
+            SoundUtils.playErrorSound(player);
             return;
         }
 
@@ -35,7 +36,7 @@ public class MessageCommand extends BaseCommand {
         targetPlayer.sendMessage(targetMessage);
 
         // Play sound
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
-        targetPlayer.playSound(targetPlayer.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
+        SoundUtils.playSuccessSound(player);
+        SoundUtils.playSuccessSound(targetPlayer);
     }
 }
