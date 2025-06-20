@@ -1,5 +1,6 @@
 package nl.nijhuissven.orbit.listeners;
 
+import nl.nijhuissven.orbit.Orbit;
 import nl.nijhuissven.orbit.managers.PlayerManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,5 +23,7 @@ public class PlayerListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         playerManager.savePlayer(event.getPlayer());
         playerManager.unloadPlayer(event.getPlayer());
+        // Clean up any active WorldEdit boss bars and selections
+        Orbit.instance().worldEditManager().cleanup(event.getPlayer());
     }
 } 

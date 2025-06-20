@@ -7,14 +7,11 @@ import net.luckperms.api.LuckPerms;
 import nl.nijhuissven.orbit.commands.CommandManager;
 import nl.nijhuissven.orbit.config.GlobalConfiguration;
 import nl.nijhuissven.orbit.database.Database;
-import nl.nijhuissven.orbit.listeners.ChatListener;
-import nl.nijhuissven.orbit.listeners.PlayerListener;
-import nl.nijhuissven.orbit.listeners.TeleportListener;
-import nl.nijhuissven.orbit.listeners.WorldEditListener;
+import nl.nijhuissven.orbit.listeners.*;
 import nl.nijhuissven.orbit.managers.HomeManager;
 import nl.nijhuissven.orbit.managers.PlayerManager;
 import nl.nijhuissven.orbit.managers.WarpManager;
-import nl.nijhuissven.orbit.managers.WorldEditManager;
+import nl.nijhuissven.orbit.managers.worldedit.WorldEditManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -65,6 +62,7 @@ public final class Orbit extends JavaPlugin {
         } else {
             this.worldEditManager = new WorldEditManager();
             getServer().getPluginManager().registerEvents(new WorldEditListener(), this);
+            getServer().getPluginManager().registerEvents(new WandListener(this.worldEditManager.getVisualizationManager()), this);
             logger.info("WorldEdit plugin not found. Enabling built-in WorldEdit integration.");
         }
 
@@ -91,6 +89,11 @@ public final class Orbit extends JavaPlugin {
     public void onDisable() {
         // Save all online players
         getServer().getOnlinePlayers().forEach(player -> playerManager.savePlayer(player));
+        
+        // Clean up all WorldEdit boss bars
+        if (worldEditManager != null) {
+            getServer().getOnlinePlayers().forEach(player -> worldEditManager.cleanup(player));
+        }
         
         // Close database connection
         if (database != null) {
