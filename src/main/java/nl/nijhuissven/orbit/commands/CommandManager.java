@@ -6,8 +6,10 @@ import co.aikar.commands.annotation.CommandAlias;
 import lombok.RequiredArgsConstructor;
 import nl.nijhuissven.orbit.Orbit;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.annotions.WorldEdit;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -69,6 +71,15 @@ public class CommandManager {
                     .collect(Collectors.toList());
             });
 
+            // Register materials completion
+            commandManager.getCommandCompletions().registerCompletion("materials", c -> {
+                return Arrays.stream(Material.values())
+                    .filter(Material::isBlock)
+                    .map(Material::name)
+                    .map(String::toLowerCase)
+                    .collect(Collectors.toList());
+            });
+
             Reflections reflections = new Reflections(basePackage);
             Set<Class<?>> annotatedClasses = reflections.get(Scanners.SubTypes.of(Scanners.TypesAnnotated.with(AutoRegister.class)).asClass());
 
@@ -76,6 +87,15 @@ public class CommandManager {
             for (Class<?> clazz : annotatedClasses) {
                 if (BaseCommand.class.isAssignableFrom(clazz)) {
                     try {
+                        // Check if this is a WorldEdit command and if WorldEdit plugin is enabled
+                        WorldEdit worldEditAnnotation = clazz.getAnnotation(WorldEdit.class);
+                        if (worldEditAnnotation != null && Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+                            CommandAlias alias = clazz.getAnnotation(CommandAlias.class);
+                            String commandName = alias != null ? alias.value() : clazz.getSimpleName();
+                            logger.info("Skipped WorldEdit command (WorldEdit plugin enabled): " + commandName);
+                            continue;
+                        }
+                        
                         BaseCommand command = (BaseCommand) clazz.getDeclaredConstructor().newInstance();
                         commandManager.registerCommand(command);
 

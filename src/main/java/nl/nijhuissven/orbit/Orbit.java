@@ -10,9 +10,11 @@ import nl.nijhuissven.orbit.database.Database;
 import nl.nijhuissven.orbit.listeners.ChatListener;
 import nl.nijhuissven.orbit.listeners.PlayerListener;
 import nl.nijhuissven.orbit.listeners.TeleportListener;
+import nl.nijhuissven.orbit.listeners.WorldEditListener;
 import nl.nijhuissven.orbit.managers.HomeManager;
 import nl.nijhuissven.orbit.managers.PlayerManager;
 import nl.nijhuissven.orbit.managers.WarpManager;
+import nl.nijhuissven.orbit.managers.WorldEditManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +33,7 @@ public final class Orbit extends JavaPlugin {
     private PlayerManager playerManager;
     private WarpManager warpManager;
     private HomeManager homeManager;
+    private WorldEditManager worldEditManager;
 
     @Override
     public void onEnable() {
@@ -57,10 +60,19 @@ public final class Orbit extends JavaPlugin {
         this.warpManager = new WarpManager(globalConfiguration.warpStorage().equalsIgnoreCase("database"));
         this.homeManager = new HomeManager(globalConfiguration.homeStorage().equalsIgnoreCase("database"));
 
+        if (Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+            logger.info("WorldEdit found. Disabling WorldEdit integration.");
+        } else {
+            this.worldEditManager = new WorldEditManager();
+            getServer().getPluginManager().registerEvents(new WorldEditListener(), this);
+            logger.info("WorldEdit plugin not found. Enabling built-in WorldEdit integration.");
+        }
+
         // Register listeners
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(playerManager), this);
         getServer().getPluginManager().registerEvents(new TeleportListener(), this);
+
 
         // Initialize command manager
         PaperCommandManager commandManager = new PaperCommandManager(this);

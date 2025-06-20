@@ -21,6 +21,11 @@ default-player-settings:
   # Enables the toggle private messages(msg)
   private-messages: true
 
+# Chat Configuration
+chat:
+  # Chat format (use %player% for player name, %message% for the message, %prefix% for LuckPerms prefix, %suffix% for LuckPerms suffix)
+  format: "<white>%player% <gray>%message%:"
+
 # Warp Configuration
 warps:
   # Storage type (yaml or database)

@@ -3,6 +3,7 @@ version: '1.0'
 main: nl.nijhuissven.orbit.Orbit
 api-version: '1.21'
 authors: [ 'NijhuisSven', 'TheBathDuck' ]
+softdepend: [ 'LuckPerms' ]
 dependencies:
   server:
     LuckPerms:

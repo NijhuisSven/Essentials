@@ -18,7 +18,9 @@ public enum Prefix {
     HOMES("<gradient:#4CAF50:#2E7D32>🏠 ʜᴏᴍᴇs<dark_gray>｜<reset>"),
     TELEPORT("<gradient:#B8039B:#640254><bold>🌀</bold> ᴛᴇʟᴇᴘᴏʀᴛ<dark_gray>｜<reset>"),
     KILL("<gradient:#BE080F:#8F0E13>🗡 ᴋɪʟʟ<dark_gray>｜<reset>"),
-    SERVER("<gradient:#00A8A8:#006969>☁ ѕᴇʀᴠᴇʀ<dark_gray>｜<reset>");
+    INVENTORY("<gradient:#FF6F00:#FF3D00>📦 ɪɴᴠᴇɴᴛᴏʀʏ<dark_gray>｜<reset>"),
+    SERVER("<gradient:#00A8A8:#006969>☁ ѕᴇʀᴠᴇʀ<dark_gray>｜<reset>"),
+    WORLDEDIT("<gradient:#4CAF50:#2E7D32>⚒ ᴡᴏʀʟᴅᴇᴅɪᴛ<dark_gray>｜<reset>");
 
     private final String prefix;
 
