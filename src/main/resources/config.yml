@@ -22,6 +22,7 @@ database:
     password: password
 
 chat:
+  # Chat format (use %player% for player name, %message% for the message, %prefix% for LuckPerms prefix, %suffix% for LuckPerms suffix)
   default-format: "<white>{player}: <gray>{message}"
 
   group-formats:
@@ -35,12 +36,7 @@ default-player-settings:
   sounds: true
   # Enables the toggle private messages(msg)
   private-messages: true
-
-# Chat Configuration
-chat:
-  # Chat format (use %player% for player name, %message% for the message, %prefix% for LuckPerms prefix, %suffix% for LuckPerms suffix)
-  format: "<white>%player% <gray>%message%:"
-
+  
 # Warp Configuration
 warps:
   # Storage type (yaml or database)
