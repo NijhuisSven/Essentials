@@ -15,11 +15,9 @@ public class UndoRedoManager {
     private final Map<UUID, Integer> redoStack = new ConcurrentHashMap<>();
     
     public void storeUndo(Player player, Location loc1, Location loc2) {
-        // For now, just increment the undo counter
-        // In a full implementation, you'd store the actual block states
         UUID playerId = player.getUniqueId();
         undoStack.put(playerId, undoStack.getOrDefault(playerId, 0) + 1);
-        // Clear redo stack when new operation is performed
+
         redoStack.remove(playerId);
     }
     
@@ -35,8 +33,6 @@ public class UndoRedoManager {
             return;
         }
         
-        // For now, just decrement the counter
-        // In a full implementation, you'd restore the actual block states
         undoStack.put(playerId, undoCount - 1);
         redoStack.put(playerId, redoStack.getOrDefault(playerId, 0) + 1);
         
@@ -57,8 +53,6 @@ public class UndoRedoManager {
             return;
         }
         
-        // For now, just decrement the counter
-        // In a full implementation, you'd restore the actual block states
         redoStack.put(playerId, redoCount - 1);
         undoStack.put(playerId, undoStack.getOrDefault(playerId, 0) + 1);
         

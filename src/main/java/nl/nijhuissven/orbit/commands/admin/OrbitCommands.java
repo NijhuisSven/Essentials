@@ -8,6 +8,7 @@ import co.aikar.commands.annotation.Subcommand;
 import lombok.SneakyThrows;
 import nl.nijhuissven.orbit.Orbit;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.config.ModuleConfiguration;
 import nl.nijhuissven.orbit.utils.FormatDate;
 import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
@@ -15,6 +16,7 @@ import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.entity.Player;
 
 import java.nio.file.Files;
+import java.util.Map;
 
 @AutoRegister
 @CommandAlias("orbit")
@@ -29,12 +31,17 @@ public class OrbitCommands extends BaseCommand {
         player.sendMessage(ChatUtils.prefixed(Prefix.SERVER, "/orbit about - Information about Orbit."));
         player.sendMessage(ChatUtils.prefixed(Prefix.SERVER, "/orbit pluginstats - Show plugin statistics."));
     }
+
     @Subcommand("reload")
     public void onReload(Player player) {
         Orbit.instance().globalConfiguration().reload();
-        Orbit.instance().warpManager().reload();
+        Orbit.instance().moduleConfiguration().reload();
+        if (Orbit.instance().moduleConfiguration().isModuleEnabled("Warps")) {
+            Orbit.instance().warpManager().reload();
+        }
 
         player.sendMessage(ChatUtils.prefixed(Prefix.SERVER, "Config files has been reloaded"));
+        player.sendMessage(ChatUtils.prefixed(Prefix.SERVER, "If you have changed the modules.yml file. Please restart the server."));
         SoundUtils.playSuccessSound(player);
         Orbit.logger().info("Config files has been reloaded by " + player.getName());
     }
@@ -52,7 +59,20 @@ public class OrbitCommands extends BaseCommand {
         player.sendMessage(ChatUtils.prefixed(Prefix.SERVER, "Thank you for using Orbit!"));
     }
 
+    @Subcommand("modules")
+    public void onModules(Player player) {
+        player.sendMessage(ChatUtils.prefixed(Prefix.SERVER, "Modules:"));
 
+        Map<String, ModuleConfiguration.ModuleInfo> modules = Orbit.instance().moduleConfiguration().getAllModules();
+
+        for (ModuleConfiguration.ModuleInfo module : modules.values()) {
+            player.sendMessage(ChatUtils.prefixed(Prefix.SERVER,
+                    " " + module.name() + " " + " <#006969>" +
+                            module.version() + " <dark_gray>| " +
+                            (module.enabled() ? "<green>Enabled" : "<red>Disabled")));
+        }
+    }
+    
     @SneakyThrows
     @Subcommand("pluginstats")
     public void onPluginStats(Player player) {

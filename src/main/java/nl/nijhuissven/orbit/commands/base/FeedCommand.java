@@ -17,6 +17,15 @@ import org.bukkit.entity.Player;
 public class FeedCommand extends BaseCommand {
 
     @Default
+    public void onFeedSelf(Player player) {
+        player.setFoodLevel(20);
+        player.setSaturation(20);
+
+        player.sendMessage(ChatUtils.prefixed(Prefix.INFO, "You have been fed!"));
+        SoundUtils.playSuccessSound(player);
+    }
+
+    @Default
     public void onFeed(Player player, OnlinePlayer target) {
         Player targetPlayer = target != null ? target.getPlayer() : player;
 

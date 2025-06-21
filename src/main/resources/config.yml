@@ -1,3 +1,13 @@
+#    ______   _______   _______   ______  ________
+#   /      \ |       \ |       \ |      \|        \
+#  |  $$$$$$\| $$$$$$$\| $$$$$$$\ \$$$$$$ \$$$$$$$$
+#  | $$  | $$| $$__| $$| $$__/ $$  | $$     | $$
+#  | $$  | $$| $$    $$| $$    $$  | $$     | $$
+#  | $$  | $$| $$$$$$$\| $$$$$$$\  | $$     | $$
+#  | $$__/ $$| $$  | $$| $$__/ $$ _| $$_    | $$
+#   \$$    $$| $$  | $$| $$    $$|   $$ \   | $$
+#    \$$$$$$  \$$   \$$ \$$$$$$$  \$$$$$$    \$$
+
 # Database Configuration
 database:
   # Database type (mysql or sqlite)
@@ -12,7 +22,12 @@ database:
     password: password
 
 chat:
-  format: "<white>{player}: <gray>{message}"
+  default-format: "<white>{player}: <gray>{message}"
+
+  group-formats:
+    default: "<white>{player}: <gray>{message}"
+    admin: "<red>[Admin] <white>{player}: <gray>{message}"
+    moderator: "<blue>[Mod] <white>{player}: <gray>{message}"
 
 # Default Player Settings
 default-player-settings:

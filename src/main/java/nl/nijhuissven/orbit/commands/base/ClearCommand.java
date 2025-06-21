@@ -18,6 +18,13 @@ import org.bukkit.entity.Player;
 public class ClearCommand extends BaseCommand {
 
     @Default
+    public void onClearSelf(Player player) {
+        player.getInventory().clear();
+        SoundUtils.playSuccessSound(player);
+        player.sendMessage(ChatUtils.prefixed(Prefix.INVENTORY, "Your inventory has been cleared!"));
+    }
+
+    @Default
     public void onClear(Player player, OnlinePlayer target) {
         Player targetPlayer = target != null ? target.getPlayer() : player;
 

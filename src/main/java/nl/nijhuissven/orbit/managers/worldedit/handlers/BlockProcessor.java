@@ -1,11 +1,11 @@
-package nl.nijhuissven.orbit.managers.worldedit;
+package nl.nijhuissven.orbit.managers.worldedit.handlers;
 
 import nl.nijhuissven.orbit.Orbit;
+import nl.nijhuissven.orbit.managers.worldedit.BossBarManager;
 import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -35,9 +35,7 @@ public class BlockProcessor {
                         final int chunkStart = chunkEnd - chunkSize;
                         
                         Orbit.instance().getServer().getScheduler().runTaskLater(Orbit.instance(), () -> {
-                            // Process this chunk
                             for (int i = Math.max(0, chunkStart); i < chunkEnd; i++) {
-                                // Calculate coordinates from index
                                 int tempX = minX + (i / ((maxY - minY + 1) * (maxZ - minZ + 1)));
                                 int tempY = minY + ((i % ((maxY - minY + 1) * (maxZ - minZ + 1))) / (maxZ - minZ + 1));
                                 int tempZ = minZ + (i % (maxZ - minZ + 1));
@@ -51,16 +49,14 @@ public class BlockProcessor {
                                 }
                             }
                             
-                            // Update boss bar progress
                             if (bossBarManager.hasActiveBossBar(player)) {
-                                bossBarManager.updateBossBarProgress(player, chunkEnd, totalBlocks);
+                                bossBarManager.updateProgress(player, chunkEnd, totalBlocks);
                             }
                             
-                            // Complete
                             if (chunkEnd == totalBlocks) {
                                 onComplete.run();
                             }
-                        }, (chunkEnd / chunkSize) * 2L); // Spread out over time
+                        }, (chunkEnd / chunkSize) * 2L);
                     }
                 }
             }

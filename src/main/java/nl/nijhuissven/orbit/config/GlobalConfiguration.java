@@ -11,6 +11,8 @@ import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @Accessors(fluent = true)
@@ -40,6 +42,7 @@ public class GlobalConfiguration {
     private final File configFile;
     private final YamlConfigurationLoader loader;
     private String chatFormat;
+    private Map<String, String> groupFormats;
 
     public GlobalConfiguration() {
         this.configFile = new File(Orbit.instance().getDataFolder(), "config.yml");
@@ -69,7 +72,9 @@ public class GlobalConfiguration {
             this.mySqlUsername = rootNode.node("database", "mysql", "username").getString("username");
             this.mySqlPassword = rootNode.node("database", "mysql", "password").getString("password");
 
-            this.chatFormat = rootNode.node("chat", "format").getString("&f{player}: &7{message}");
+            // Chat configuration
+            this.chatFormat = rootNode.node("chat", "default-format").getString("&f{player}: &7{message}");
+            loadGroupFormats(rootNode);
             
             // Warp configuration
             this.warpStorage = rootNode.node("warps", "storage").getString("yaml");
@@ -92,6 +97,28 @@ public class GlobalConfiguration {
             Orbit.logger().severe("Could not load configuration: " + e.getMessage());
             throw new RuntimeException("Failed to load configuration", e);
         }
+    }
+
+    private void loadGroupFormats(CommentedConfigurationNode rootNode) {
+        this.groupFormats = new HashMap<>();
+        CommentedConfigurationNode groupFormatsNode = rootNode.node("chat", "group-formats");
+        
+        if (groupFormatsNode.isMap()) {
+            for (Map.Entry<Object, CommentedConfigurationNode> entry : groupFormatsNode.childrenMap().entrySet()) {
+                String groupName = entry.getKey().toString();
+                String format = entry.getValue().getString();
+                this.groupFormats.put(groupName, format);
+            }
+        }
+        
+        // Add default format if not present
+        if (!this.groupFormats.containsKey("default")) {
+            this.groupFormats.put("default", this.chatFormat);
+        }
+    }
+
+    public String getChatFormatForGroup(String groupName) {
+        return groupFormats.getOrDefault(groupName, groupFormats.getOrDefault("default", chatFormat));
     }
 
     private void loadSoundConfig(CommentedConfigurationNode rootNode) {

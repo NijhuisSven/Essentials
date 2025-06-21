@@ -23,7 +23,7 @@ public class WandListener implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                visualizationManager.updateVisibility(player);
+                visualizationManager.updateVisualization(player);
             }
         }.runTask(Orbit.instance());
     }

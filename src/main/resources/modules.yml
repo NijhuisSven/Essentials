@@ -1,0 +1,21 @@
+#
+# This file is used to configure the modules of the server.
+# Do not change the names or versions of the modules, as they are used by the plugin.
+# THE PLUGIN WILL BREAK IF YOU CHANGE THE NAMES OR VERSIONS OF THE MODULES!
+#
+modules:
+  - name: "WorldEdit" # DONT CHANGE THIS
+    version: "1.0.0" # DONT CHANGE THIS
+    enabled: true
+
+  - name: "ChatFormat" # DONT CHANGE THIS
+    version: "1.0.0" # DONT CHANGE THIS
+    enabled: true
+
+  - name: "Warps" # DONT CHANGE THIS
+    version: "1.0.0" # DONT CHANGE THIS
+    enabled: true
+
+  - name: "Homes" # DONT CHANGE THIS
+    version: "1.0.0" # DONT CHANGE THIS
+    enabled: true

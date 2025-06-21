@@ -29,56 +29,7 @@ public class CommandManager {
 
     public void registerCommands() {
         try {
-            // Register gamemode completions
-            commandManager.getCommandCompletions().registerCompletion("gamemodes", c -> 
-                Arrays.stream(GameMode.values())
-                    .map(GameMode::name)
-                    .collect(Collectors.toList())
-            );
-
-            // Register warp completion
-            commandManager.getCommandCompletions().registerCompletion("warps", c ->
-                Orbit.instance().warpManager().getWarpNames()
-            );
-
-            // Register player completion
-            commandManager.getCommandCompletions().registerCompletion("players", c -> {
-                return Bukkit.getOnlinePlayers().stream()
-                    .map(Player::getName)
-                    .collect(Collectors.toList());
-            });
-
-            // Register home completion
-            commandManager.getCommandCompletions().registerCompletion("homes", c -> {
-                if (c.getPlayer() != null) {
-                    return Orbit.instance().homeManager().getHomeNames(c.getPlayer().getUniqueId());
-                }
-                return Arrays.asList();
-            });
-
-            // Register entity types completion
-            commandManager.getCommandCompletions().registerCompletion("entitytypes", c -> {
-                return Arrays.stream(EntityType.values())
-                    .map(EntityType::name)
-                    .map(String::toLowerCase)
-                    .collect(Collectors.toList());
-            });
-
-            // Register worlds completion
-            commandManager.getCommandCompletions().registerCompletion("worlds", c -> {
-                return Bukkit.getWorlds().stream()
-                    .map(World::getName)
-                    .collect(Collectors.toList());
-            });
-
-            // Register materials completion
-            commandManager.getCommandCompletions().registerCompletion("materials", c -> {
-                return Arrays.stream(Material.values())
-                    .filter(Material::isBlock)
-                    .map(Material::name)
-                    .map(String::toLowerCase)
-                    .collect(Collectors.toList());
-            });
+            registerCompletions();
 
             Reflections reflections = new Reflections(basePackage);
             Set<Class<?>> annotatedClasses = reflections.get(Scanners.SubTypes.of(Scanners.TypesAnnotated.with(AutoRegister.class)).asClass());
@@ -87,34 +38,123 @@ public class CommandManager {
             for (Class<?> clazz : annotatedClasses) {
                 if (BaseCommand.class.isAssignableFrom(clazz)) {
                     try {
-                        // Check if this is a WorldEdit command and if WorldEdit plugin is enabled
-                        WorldEdit worldEditAnnotation = clazz.getAnnotation(WorldEdit.class);
-                        if (worldEditAnnotation != null && Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+                        if (shouldRegisterCommand(clazz)) {
+                            BaseCommand command = (BaseCommand) clazz.getDeclaredConstructor().newInstance();
+                            commandManager.registerCommand(command);
+
                             CommandAlias alias = clazz.getAnnotation(CommandAlias.class);
                             String commandName = alias != null ? alias.value() : clazz.getSimpleName();
-                            logger.info("Skipped WorldEdit command (WorldEdit plugin enabled): " + commandName);
-                            continue;
+                            
+                            //logger.info("Registered command: " + commandName);
+                            registeredCount++;
                         }
-                        
-                        BaseCommand command = (BaseCommand) clazz.getDeclaredConstructor().newInstance();
-                        commandManager.registerCommand(command);
-
-                        CommandAlias alias = clazz.getAnnotation(CommandAlias.class);
-                        String commandName = alias != null ? alias.value() : clazz.getSimpleName();
-                        
-                        logger.info("Registered Aikar command: " + commandName);
-                        registeredCount++;
                     } catch (Exception e) {
-                        logger.warning("Failed to register Aikar command: " + clazz.getSimpleName());
+                        logger.warning("Failed to register command: " + clazz.getSimpleName());
                         Orbit.logger().severe(e.getMessage());
                     }
                 }
             }
 
-            logger.info("Successfully registered " + registeredCount + " Aikar commands!");
+            logger.info("Successfully registered " + registeredCount + " commands!");
         } catch (Exception e) {
             logger.severe("Failed to register commands: " + e.getMessage());
             Orbit.logger().severe(e.getMessage());
         }
+    }
+
+    private boolean shouldRegisterCommand(Class<?> commandClass) {
+        // Check if this is a WorldEdit command and if WorldEdit plugin is enabled
+        WorldEdit worldEditAnnotation = commandClass.getAnnotation(WorldEdit.class);
+        if (worldEditAnnotation != null) {
+            if (Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {
+                CommandAlias alias = commandClass.getAnnotation(CommandAlias.class);
+                String commandName = alias != null ? alias.value() : commandClass.getSimpleName();
+                logger.info("Skipped WorldEdit command (external WorldEdit plugin enabled): " + commandName);
+                return false;
+            }
+            
+            // Check if WorldEdit module is enabled in configuration
+            if (!Orbit.instance().moduleConfiguration().isModuleEnabled("WorldEdit")) {
+                CommandAlias alias = commandClass.getAnnotation(CommandAlias.class);
+                String commandName = alias != null ? alias.value() : commandClass.getSimpleName();
+                //logger.info("Skipped WorldEdit command (module disabled): " + commandName);
+                return false;
+            }
+        }
+
+        // Check for other module-specific commands based on package structure
+        String packageName = commandClass.getPackageName();
+        if (packageName.contains("warp") && !Orbit.instance().moduleConfiguration().isModuleEnabled("Warps")) {
+            CommandAlias alias = commandClass.getAnnotation(CommandAlias.class);
+            String commandName = alias != null ? alias.value() : commandClass.getSimpleName();
+            //logger.info("Skipped Warps command (module disabled): " + commandName);
+            return false;
+        }
+        
+        if (packageName.contains("home") && !Orbit.instance().moduleConfiguration().isModuleEnabled("Homes")) {
+            CommandAlias alias = commandClass.getAnnotation(CommandAlias.class);
+            String commandName = alias != null ? alias.value() : commandClass.getSimpleName();
+            //logger.info("Skipped Homes command (module disabled): " + commandName);
+            return false;
+        }
+
+        return true;
+    }
+
+    private void registerCompletions() {
+        // Register gamemode completions
+        commandManager.getCommandCompletions().registerCompletion("gamemodes", c -> 
+            Arrays.stream(GameMode.values())
+                .map(GameMode::name)
+                .collect(Collectors.toList())
+        );
+
+        // Register warp completion (only if Warps module is enabled)
+        if (Orbit.instance().moduleConfiguration().isModuleEnabled("Warps")) {
+            commandManager.getCommandCompletions().registerCompletion("warps", c ->
+                Orbit.instance().warpManager().getWarpNames()
+            );
+        }
+
+        // Register player completion
+        commandManager.getCommandCompletions().registerCompletion("players", c -> {
+            return Bukkit.getOnlinePlayers().stream()
+                .map(Player::getName)
+                .collect(Collectors.toList());
+        });
+
+        // Register home completion (only if Homes module is enabled)
+        if (Orbit.instance().moduleConfiguration().isModuleEnabled("Homes")) {
+            commandManager.getCommandCompletions().registerCompletion("homes", c -> {
+                if (c.getPlayer() != null) {
+                    return Orbit.instance().homeManager().getHomeNames(c.getPlayer().getUniqueId());
+                }
+                return Arrays.asList();
+            });
+        }
+
+        // Register entity types completion
+        commandManager.getCommandCompletions().registerCompletion("entitytypes", c -> {
+            return Arrays.stream(EntityType.values())
+                .map(EntityType::name)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+        });
+
+        // Register worlds completion
+        commandManager.getCommandCompletions().registerCompletion("worlds", c -> {
+            return Bukkit.getWorlds().stream()
+                .map(World::getName)
+                .collect(Collectors.toList());
+        });
+
+        // Register materials completion
+        commandManager.getCommandCompletions().registerCompletion("materials", c -> {
+            return Arrays.stream(Material.values())
+                .filter(Material::isBlock)
+                .map(Material::name)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+        });
     }
 } 
