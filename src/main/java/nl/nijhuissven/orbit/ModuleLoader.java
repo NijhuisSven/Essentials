@@ -34,6 +34,7 @@ public class ModuleLoader {
         loadHomesModule();
         loadWorldEditModule();
         loadChatFormatModule();
+        loadPunishmentModule();
         registerCoreListeners();
     }
 
@@ -54,7 +55,19 @@ public class ModuleLoader {
             Orbit.logger().info("Homes module disabled");
         }
     }
-    
+
+    private void loadPunishmentModule() {
+        if (moduleConfiguration.isModuleEnabled("Punishments")) {
+            if (Bukkit.getPluginManager().isPluginEnabled("litebans")) {
+                Orbit.logger().info("External Punishments plugin found. Disabling built-in Punishments module.");
+            } else {
+                Orbit.logger().info("Punishments module enabled");
+            }
+        } else {
+            Orbit.logger().info("Punishments module disabled");
+        }
+    }
+
     private void loadWorldEditModule() {
         if (moduleConfiguration.isModuleEnabled("WorldEdit")) {
             if (Bukkit.getPluginManager().isPluginEnabled("WorldEdit")) {

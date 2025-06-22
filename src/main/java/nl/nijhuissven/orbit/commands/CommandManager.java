@@ -1,12 +1,15 @@
 package nl.nijhuissven.orbit.commands;
 
 import co.aikar.commands.BaseCommand;
+import co.aikar.commands.InvalidCommandArgument;
 import co.aikar.commands.PaperCommandManager;
 import co.aikar.commands.annotation.CommandAlias;
 import lombok.RequiredArgsConstructor;
 import nl.nijhuissven.orbit.Orbit;
 import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.annotions.Punishments;
 import nl.nijhuissven.orbit.annotions.WorldEdit;
+import nl.nijhuissven.orbit.utils.TimeEntry;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -17,6 +20,7 @@ import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -30,6 +34,7 @@ public class CommandManager {
     public void registerCommands() {
         try {
             registerCompletions();
+            registerContext();
 
             Reflections reflections = new Reflections(basePackage);
             Set<Class<?>> annotatedClasses = reflections.get(Scanners.SubTypes.of(Scanners.TypesAnnotated.with(AutoRegister.class)).asClass());
@@ -45,7 +50,7 @@ public class CommandManager {
                             CommandAlias alias = clazz.getAnnotation(CommandAlias.class);
                             String commandName = alias != null ? alias.value() : clazz.getSimpleName();
                             
-                            //logger.info("Registered command: " + commandName);
+                            logger.info("Registered command: " + commandName);
                             registeredCount++;
                         }
                     } catch (Exception e) {
@@ -63,6 +68,25 @@ public class CommandManager {
     }
 
     private boolean shouldRegisterCommand(Class<?> commandClass) {
+
+        Punishments punishmentsAnnotation = commandClass.getAnnotation(Punishments.class);
+        if (punishmentsAnnotation != null) {
+            if (Bukkit.getPluginManager().isPluginEnabled("litebans")) {
+                CommandAlias alias = commandClass.getAnnotation(CommandAlias.class);
+                String commandName = alias != null ? alias.value() : commandClass.getSimpleName();
+                logger.info("Skipped WorldEdit command (external WorldEdit plugin enabled): " + commandName);
+                return false;
+            }
+
+            // Check if WorldEdit module is enabled in configuration
+            if (!Orbit.instance().moduleConfiguration().isModuleEnabled("Punishments")) {
+                CommandAlias alias = commandClass.getAnnotation(CommandAlias.class);
+                String commandName = alias != null ? alias.value() : commandClass.getSimpleName();
+                //logger.info("Skipped WorldEdit command (module disabled): " + commandName);
+                return false;
+            }
+        }
+
         // Check if this is a WorldEdit command and if WorldEdit plugin is enabled
         WorldEdit worldEditAnnotation = commandClass.getAnnotation(WorldEdit.class);
         if (worldEditAnnotation != null) {
@@ -101,6 +125,16 @@ public class CommandManager {
         return true;
     }
 
+    private void registerContext() {
+        commandManager.getCommandContexts().registerContext(TimeEntry.class, (context) -> {
+            TimeEntry timeEntry = TimeEntry.from(context.popFirstArg());
+            if (timeEntry == null) {
+                throw new InvalidCommandArgument("Not a valid TimeEntry");
+            }
+            return timeEntry;
+        });
+    }
+
     private void registerCompletions() {
         // Register gamemode completions
         commandManager.getCommandCompletions().registerCompletion("gamemodes", c -> 
@@ -129,7 +163,7 @@ public class CommandManager {
                 if (c.getPlayer() != null) {
                     return Orbit.instance().homeManager().getHomeNames(c.getPlayer().getUniqueId());
                 }
-                return Arrays.asList();
+                return List.of();
             });
         }
 

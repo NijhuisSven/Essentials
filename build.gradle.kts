@@ -46,7 +46,7 @@ tasks {
     }
     shadowJar {
         minimize()
-        archiveFileName.set(rootProject.name + "-" + rootProject.version + ".jar")
+        archiveFileName.set("${rootProject.name}-${rootProject.version}.jar")
         relocate("co.aikar.commands", "nl.nijhuissven.shaded.acf")
         relocate("co.aikar.locales", "nl.nijhuissven.shaded.locales")
         // Voeg hier extra relocates toe indien nodig

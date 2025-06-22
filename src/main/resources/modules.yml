@@ -19,3 +19,8 @@ modules:
   - name: "Homes" # DONT CHANGE THIS
     version: "1.0.0" # DONT CHANGE THIS
     enabled: true
+
+  - name: "Punishments" # DONT CHANGE THIS
+    version: "1.0.0" # DONT CHANGE THIS
+    enabled: true
+
