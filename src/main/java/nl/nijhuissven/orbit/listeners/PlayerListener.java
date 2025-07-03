@@ -23,7 +23,5 @@ public class PlayerListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         playerManager.savePlayer(event.getPlayer());
         playerManager.unloadPlayer(event.getPlayer());
-        // Clean up any active WorldEdit boss bars and selections
-        Orbit.instance().worldEditManager().cleanup(event.getPlayer());
     }
 } 
