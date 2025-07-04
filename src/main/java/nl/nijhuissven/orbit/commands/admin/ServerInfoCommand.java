@@ -4,7 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
-import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.annotations.AutoRegister;
 import nl.nijhuissven.orbit.utils.FormatDate;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;

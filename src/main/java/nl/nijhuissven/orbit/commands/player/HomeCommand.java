@@ -3,7 +3,7 @@ package nl.nijhuissven.orbit.commands.player;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import nl.nijhuissven.orbit.Orbit;
-import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.annotations.AutoRegister;
 import nl.nijhuissven.orbit.models.HomeModel;
 import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.TeleportUtils;
@@ -12,8 +12,6 @@ import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-
-import java.util.UUID;
 
 @AutoRegister
 @CommandAlias("home")

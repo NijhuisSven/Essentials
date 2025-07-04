@@ -2,12 +2,11 @@ package nl.nijhuissven.orbit.commands.base;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
-import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.annotations.AutoRegister;
 import nl.nijhuissven.orbit.utils.SoundUtils;
 import nl.nijhuissven.orbit.utils.chat.ChatUtils;
 import nl.nijhuissven.orbit.utils.chat.Prefix;
 import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 

@@ -7,7 +7,7 @@ import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
 import lombok.SneakyThrows;
 import nl.nijhuissven.orbit.Orbit;
-import nl.nijhuissven.orbit.annotions.AutoRegister;
+import nl.nijhuissven.orbit.annotations.AutoRegister;
 import nl.nijhuissven.orbit.config.ModuleConfiguration;
 import nl.nijhuissven.orbit.utils.FormatDate;
 import nl.nijhuissven.orbit.utils.SoundUtils;

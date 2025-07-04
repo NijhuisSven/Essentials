@@ -1,4 +1,4 @@
-package nl.nijhuissven.orbit.annotions;
+package nl.nijhuissven.orbit.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,5 +7,5 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface WorldEdit {
+public @interface Punishments {
 }

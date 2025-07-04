@@ -5,8 +5,8 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
 import nl.nijhuissven.orbit.Orbit;
-import nl.nijhuissven.orbit.annotions.AutoRegister;
-import nl.nijhuissven.orbit.annotions.WorldEdit;
+import nl.nijhuissven.orbit.annotations.AutoRegister;
+import nl.nijhuissven.orbit.annotations.WorldEdit;
 import org.bukkit.entity.Player;
 
 @AutoRegister
